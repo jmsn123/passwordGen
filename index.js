@@ -25,9 +25,9 @@ function writePassword() {
     var lengthPassword = prompt("How long do you want the password to be?");
     if (!lengthPassword) {
         alert("you must input a length try again ");
-        return writePassword();
+        return;
     }
-    console.log(lengthPassword);
+    // console.log(lengthPassword);
     var values = {
         confirmUppercase,
         confirmLowercase,
@@ -39,9 +39,8 @@ function writePassword() {
     return values;
 }
 // console.log(writePassword());
-console.log("her");
 
-function generatePassword(speacialChars, letterU, letterL, number) {
+function generatePassword() {
     var {
         confirmLowercase,
         confirmNumber,
@@ -50,35 +49,29 @@ function generatePassword(speacialChars, letterU, letterL, number) {
         lengthPassword,
     } = writePassword();
     var result = [];
-    var newStr = "";
+    // var newStr = "";
     // console.log(speacialChars);
 
     // console.log(confirmLowercase);
     // filter out unchecked types
-    var typesConfirmed =
-        confirmLowercase + confirmNumber + confirmUppercase + confirmSpecial;
+
     // console.log(typesConfirmed);
-    const typesArr = [
-        confirmLowercase,
-        confirmNumber,
-        confirmUppercase,
-        confirmSpecial,
-    ];
-    console.log(letterL);
+    // // const typesArr = [
+    // //     confirmLowercase,
+    // //     confirmNumber,
+    // //     confirmUppercase,
+    // //     confirmSpecial,
+    // ];
     var chars = letterL;
     if (confirmUppercase) chars = chars.concat(letterU);
-    console.log(letterU);
-    if (confirmSpecial) chars = chars.concat(speacialChars);
+    if (confirmSpecial) chars = chars.concat(specialCharacter);
     if (confirmNumber) chars = chars.concat(number);
-    console.log("chars", chars);
 
     for (var i = 0; i < lengthPassword; i += 1) {
         var x = Math.floor(Math.random() * chars.length);
-        console.log(x);
+        // console.log(x);
         result.push(chars[x]);
     }
-
-    return result.join("");
 
     //.forEach((item) => {
     //     console.log(item);
@@ -89,15 +82,16 @@ function generatePassword(speacialChars, letterU, letterL, number) {
 
     // console.log(typesArr);
     // return result;
+    var password = result.join("");
+    var passwordText = document.querySelector("#password");
+    passwordText.value = password;
+
+    // return result.join("");
 }
 
 // Math.random().toString()
-var password = generatePassword(specialCharacter, letterU, letterL, number);
+// var password = generatePassword();
 // passwor;
 
-var passwordText = document.querySelector("#password");
-console.log("passwor", password);
-passwordText.value = password;
-
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
